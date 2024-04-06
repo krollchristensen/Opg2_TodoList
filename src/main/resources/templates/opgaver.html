@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Todo Liste</title>
+</head>
+<body>
+<h1>Opgaver</h1>
+<div>
+    <form action="#" th:action="@{/opgaver}" th:object="${nyOpgave}" method="post">
+        <input type="text" th:field="*{beskrivelse}" placeholder="Tilføj ny opgave" />
+        <button type="submit">Tilføj</button>
+    </form>
+</div>
+<div>
+    <ul>
+        <li th:each="opgave : ${opgaver}">
+            <span th:text="${opgave.beskrivelse}">Opgave Beskrivelse</span>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
