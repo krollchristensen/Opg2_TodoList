@@ -1,19 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Todo Liste</title>
+    <title>Todo Liste</title> <!-- Titlen på siden, der vises i browserens titellinje. -->
 </head>
 <body>
-<h1>Opgaver</h1>
+<h1>Opgaver</h1> <!-- Overskriften på siden, der viser 'Opgaver'. -->
+
+<!-- Dette afsnit indeholder en formular til at tilføje en ny opgave. -->
 <div>
+    <!--
+    Formularen bruger POST metoden til at sende data. th:action definerer, hvilken URL data skal sendes til.
+    "@{/opgaver}" angiver, at data skal sendes til /opgaver endpointet i din controller.
+    th:object="${nyOpgave}" binder formular data til nyOpgave objektet i modelen, så det nemt kan hentes i controlleren.
+    -->
     <form action="#" th:action="@{/opgaver}" th:object="${nyOpgave}" method="post">
+        <!--
+        Et input felt for beskrivelsen af den nye opgave. th:field binder inputfeltets værdi til 'beskrivelse' feltet i 'nyOpgave' objektet.
+        Placeholder attributten viser en hjælpetekst i feltet, indtil det får fokus.
+        -->
         <input type="text" th:field="*{beskrivelse}" placeholder="Tilføj ny opgave" />
+        <!-- En knap til at indsende formularen og tilføje den nye opgave. -->
         <button type="submit">Tilføj</button>
     </form>
 </div>
+
+<!-- Dette afsnit viser en liste over alle opgaver. -->
 <div>
     <ul>
+        <!-- th:each anvendes her til at itere over alle opgaver i 'opgaver' listen fra modelen. For hver opgave, oprettes et <li> element. -->
         <li th:each="opgave : ${opgaver}">
+            <!--
+            Viser beskrivelsen af hver opgave. th:text sætter tekstindholdet af <span> elementet til værdien af 'beskrivelse' feltet fra den aktuelle opgave i listen.
+            "Opgave Beskrivelse" er en fallback tekst, der vises, hvis th:text ikke finder nogen tekst at sætte (det sker normalt ikke i dette tilfælde).
+            -->
             <span th:text="${opgave.beskrivelse}">Opgave Beskrivelse</span>
         </li>
     </ul>
